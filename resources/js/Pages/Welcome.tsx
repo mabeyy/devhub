@@ -32,7 +32,29 @@ const experience = [
     },
 ];
 
-const projects = [
+type Project = {
+    title: string;
+    subtitle: string;
+    period: string;
+    stack: string[];
+    repo?: string;
+    live?: string;
+    bullets: string[];
+};
+
+const projects: Project[] = [
+    {
+        title: 'Zen Intent',
+        subtitle: 'B2B Lead Generation Platform',
+        period: 'Apr 2026 — Present',
+        stack: ['Laravel', 'Inertia', 'React', 'TypeScript', 'Tailwind', 'Stripe', 'Sentry'],
+        live: 'https://app.zenintent.io',
+        bullets: [
+            'Owned the end-to-end signup experience — split-layout auth, intent-aware Google OAuth via Laravel Socialite, email-verification gating, and a re-architected per-bucket onboarding wizard wired to Stripe Cashier — turning the front door into a guided funnel toward paid checkout.',
+            'Shipped a branded sidebar and lead-pool widget with full light/dark theme support, unifying the global app chrome so auth, onboarding, and the leads dashboard finally feel like one product.',
+            'Hardened the production stack: Sentry on frontend + backend for end-to-end error visibility, capture-usage instrumentation, branded transactional emails, and a stable production build — fewer prod surprises, faster shipping.',
+        ],
+    },
     {
         title: 'SA-MTL for Cyberbullying Detection',
         subtitle: 'Undergraduate Thesis',
@@ -307,22 +329,48 @@ export default function Welcome() {
                                             {p.period}
                                         </span>
                                     </div>
-                                    {p.repo && (
-                                        <a
-                                            href={p.repo}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="mt-3 inline-flex items-center gap-2 text-sm text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200"
-                                        >
-                                            <svg
-                                                viewBox="0 0 24 24"
-                                                aria-hidden
-                                                className="h-4 w-4 fill-current"
-                                            >
-                                                <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.91 10.91 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z" />
-                                            </svg>
-                                            github.com/mabeyy/mtl-bert
-                                        </a>
+                                    {(p.repo || p.live) && (
+                                        <div className="mt-3 flex flex-wrap items-center gap-4">
+                                            {p.live && (
+                                                <a
+                                                    href={p.live}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-2 text-sm text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 24 24"
+                                                        aria-hidden
+                                                        className="h-4 w-4 fill-none stroke-current"
+                                                        strokeWidth={2}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <path d="M14 3h7v7" />
+                                                        <path d="M10 14 21 3" />
+                                                        <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                                                    </svg>
+                                                    {p.live.replace(/^https?:\/\//, '')}
+                                                </a>
+                                            )}
+                                            {p.repo && (
+                                                <a
+                                                    href={p.repo}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="inline-flex items-center gap-2 text-sm text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200"
+                                                >
+                                                    <svg
+                                                        viewBox="0 0 24 24"
+                                                        aria-hidden
+                                                        className="h-4 w-4 fill-current"
+                                                    >
+                                                        <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.91 10.91 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z" />
+                                                    </svg>
+                                                    {p.repo.replace(/^https?:\/\/(www\.)?/, '')}
+                                                </a>
+                                            )}
+                                        </div>
                                     )}
                                     <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                                         {p.bullets.map((b) => (
