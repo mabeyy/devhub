@@ -6,15 +6,18 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="alternate icon" href="/favicon.ico">
+
         <script>
-            // Apply theme before paint to prevent flash. Defaults to dark.
+            // Apply theme before paint to prevent flash. Defaults to light.
             (function () {
                 try {
                     var stored = localStorage.getItem('theme');
-                    var theme = stored === 'light' ? 'light' : 'dark';
-                    document.documentElement.classList.toggle('dark', theme === 'dark');
+                    var theme = stored === 'dark' ? 'dark' : 'light';
+                    document.documentElement.classList.toggle('light', theme === 'light');
                 } catch (e) {
-                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.add('light');
                 }
             })();
         </script>

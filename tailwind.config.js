@@ -19,6 +19,18 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                brand: {
+                    50: '#FAF1EA',
+                    100: '#F4E0D1',
+                    200: '#EBC3A4',
+                    300: '#E0A37A',
+                    400: '#DC8A65',
+                    500: '#D97757',
+                    600: '#BB5C3C',
+                    700: '#984630',
+                    800: '#763728',
+                    900: '#5C2C21',
+                },
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',
