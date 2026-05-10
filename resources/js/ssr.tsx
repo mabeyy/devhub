@@ -18,14 +18,16 @@ createServer((page) =>
                 import.meta.glob('./Pages/**/*.tsx'),
             ),
         setup: ({ App, props }) => {
-            /* eslint-disable */
-            // @ts-expect-error
-            global.route = ((name: RouteName, params?: any, absolute?: boolean) =>
+            (globalThis as Record<string, unknown>).route = ((
+                name: RouteName,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                params?: any,
+                absolute?: boolean,
+            ) =>
                 route(name, params, absolute, {
                     ...page.props.ziggy,
                     location: new URL(page.props.ziggy.location),
                 })) as typeof route;
-            /* eslint-enable */
 
             return <App {...props} />;
         },
