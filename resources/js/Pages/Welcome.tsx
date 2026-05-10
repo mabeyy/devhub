@@ -1,11 +1,22 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Toaster } from '@/components/ui/sonner';
 import { Textarea } from '@/components/ui/textarea';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { PageProps } from '@/types';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { FormEvent, ReactNode, useEffect, useState } from 'react';
+import { Database, Rocket, Webhook } from 'lucide-react';
+import { ComponentType, FormEvent, ReactNode, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 const experience = [
     {
@@ -73,7 +84,7 @@ const projects: Project[] = [
 ];
 
 const navItems = [
-    { id: 'about', label: 'About' },
+    { id: 'top', label: 'Home' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
@@ -85,14 +96,19 @@ const skills = {
     'Frameworks & Tools': [
         'Laravel',
         'React',
+        'Next.js',
         'Node.js',
+        'Express',
+        'Tailwind CSS',
         'PostgreSQL',
         'MySQL',
         'n8n',
         'LangChain',
         'Ollama',
+        'Vite',
         'Git',
         'Docker',
+        'Vercel',
         'Postman',
         'GHL',
         'REST APIs',
@@ -167,6 +183,20 @@ export default function Welcome() {
         e.preventDefault();
         form.post(route('contact.store'), {
             preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Message sent', {
+                    description: "Thanks — I'll reply soon.",
+                });
+            },
+            onError: (errors) => {
+                const firstError = Object.values(errors)[0];
+                toast.error('Couldn’t send your message', {
+                    description:
+                        typeof firstError === 'string'
+                            ? firstError
+                            : 'Please check the form and try again.',
+                });
+            },
         });
     };
 
@@ -174,6 +204,7 @@ export default function Welcome() {
         <>
             <Head title="Jean Maverick Dela Cruz — Portfolio" />
 
+            <TooltipProvider delayDuration={250}>
             <div className="min-h-screen bg-white font-sans text-stone-700 antialiased transition-colors dark:bg-stone-950 dark:text-stone-200">
                 <div
                     aria-hidden
@@ -191,12 +222,17 @@ export default function Welcome() {
                                 : 'border border-transparent'
                         }`}
                     >
-                        <a
-                            href="#top"
-                            className="font-mono text-sm tracking-widest text-brand-600 dark:text-brand-400"
-                        >
-                            JM.DC
-                        </a>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <a
+                                    href="#top"
+                                    className="font-mono text-sm tracking-widest text-brand-600 dark:text-brand-400"
+                                >
+                                    JM.DC
+                                </a>
+                            </TooltipTrigger>
+                            <TooltipContent>Jean Maverick Dela Cruz</TooltipContent>
+                        </Tooltip>
                         <div className="flex items-center gap-6">
                             <nav className="hidden gap-8 text-sm sm:flex">
                                 {navItems.map((item) => {
@@ -224,14 +260,7 @@ export default function Welcome() {
                         id="top"
                         className="grid items-center gap-12 sm:grid-cols-[auto,1fr]"
                     >
-                        <div className="relative mx-auto sm:mx-0">
-                            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-brand-500 via-amber-400 to-yellow-300 opacity-70 blur" />
-                            <img
-                                src="/images/profile-photo.jpg"
-                                alt="Jean Maverick Dela Cruz"
-                                className="relative h-44 w-44 rounded-full object-cover ring-4 ring-white dark:ring-stone-950 sm:h-52 sm:w-52"
-                            />
-                        </div>
+                        <HeroPhoto />
                         <div>
                             <p className="mb-3 font-mono text-sm text-brand-600 dark:text-brand-400">
                                 Hi, my name is
@@ -289,51 +318,13 @@ export default function Welcome() {
                         </div>
                     </section>
 
-                    <section id="about" className="mt-28">
-                        <SectionHeading title="About" />
-                        <div className="mt-8 space-y-4 text-stone-600 dark:text-stone-300">
-                            <p>
-                                I&apos;m a full-stack developer at{' '}
-                                <span className="text-stone-900 dark:text-white">
-                                    Zen Companies
-                                </span>{' '}
-                                and a Computer Science senior at the{' '}
-                                <span className="text-stone-900 dark:text-white">
-                                    University of Science and Technology of Southern
-                                    Philippines
-                                </span>
-                                , graduating June 2026. I&apos;m happiest when a rough product
-                                idea turns into a polished, reliable web app the kind real
-                                people use every day.
-                            </p>
-                            <p>
-                                My recent work sits at the intersection of{' '}
-                                <span className="text-stone-900 dark:text-white">
-                                    full-stack engineering and applied AI
-                                </span>
-                                : Laravel + Inertia + React with Stripe Cashier billing and
-                                Sentry-traced production at Zen Intent, FastAPI services
-                                calling local LLMs through Ollama for school-portal AI tools,
-                                and BERT-based multi-task models for cyberbullying detection.
-                                I&apos;m comfortable across the stack — schema design, API
-                                integrations, auth flows, payments, and UI polish.
-                            </p>
-                            <p>
-                                Coursework I lean on: Data Structures &amp; Algorithms,
-                                Object-Oriented Programming, Database Management Systems, Web
-                                Development, Software Engineering, Artificial Intelligence,
-                                and Machine Learning.
-                            </p>
-                        </div>
-                    </section>
-
                     <section id="experience" className="mt-28">
                         <SectionHeading title="Experience" />
                         <div className="mt-8 space-y-10">
                             {experience.map((job) => (
-                                <article
-                                    key={job.company}
-                                    className="rounded-2xl border border-stone-200 bg-white/60 p-6 backdrop-blur transition hover:border-stone-300 dark:border-stone-800 dark:bg-stone-900/40 dark:hover:border-stone-700"
+                                <article key={job.company}>
+                                <Card
+                                    className="rounded-2xl border-stone-200 bg-white/60 p-6 shadow-none backdrop-blur transition hover:border-stone-300 dark:border-stone-800 dark:bg-stone-900/40 dark:hover:border-stone-700"
                                 >
                                     <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                                         <div>
@@ -359,6 +350,7 @@ export default function Welcome() {
                                             </li>
                                         ))}
                                     </ul>
+                                </Card>
                                 </article>
                             ))}
                         </div>
@@ -368,22 +360,20 @@ export default function Welcome() {
                         <SectionHeading title="Projects" />
                         <div className="mt-8 grid gap-6">
                             {projects.map((p) => (
-                                <article
-                                    key={p.title}
-                                    className="group overflow-hidden rounded-2xl border border-stone-200 bg-white/60 backdrop-blur transition hover:border-brand-500/60 dark:border-stone-800 dark:bg-stone-900/40"
+                                <article key={p.title}>
+                                <Card
+                                    className="group overflow-hidden rounded-2xl border-stone-200 bg-white/60 shadow-none backdrop-blur transition hover:border-brand-500/60 dark:border-stone-800 dark:bg-stone-900/40"
                                 >
                                     {p.image && (
                                         <a
                                             href={p.live ?? p.repo ?? '#'}
                                             target={p.live || p.repo ? '_blank' : undefined}
                                             rel="noreferrer"
-                                            className="block aspect-[16/9] overflow-hidden border-b border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-900"
+                                            className="relative block aspect-[16/9] overflow-hidden border-b border-stone-200 dark:border-stone-800"
                                         >
-                                            <img
+                                            <ProjectImage
                                                 src={p.image}
                                                 alt={`${p.title} screenshot`}
-                                                loading="lazy"
-                                                className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02]"
                                             />
                                         </a>
                                     )}
@@ -402,43 +392,57 @@ export default function Welcome() {
                                     {(p.repo || p.live) && (
                                         <div className="mt-3 flex flex-wrap items-center gap-4">
                                             {p.live && (
-                                                <a
-                                                    href={p.live}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="inline-flex items-center gap-2 text-sm text-brand-600 transition hover:text-brand-500 dark:text-brand-300 dark:hover:text-brand-200"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 24 24"
-                                                        aria-hidden
-                                                        className="h-4 w-4 fill-none stroke-current"
-                                                        strokeWidth={2}
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    >
-                                                        <path d="M14 3h7v7" />
-                                                        <path d="M10 14 21 3" />
-                                                        <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
-                                                    </svg>
-                                                    {p.live.replace(/^https?:\/\//, '')}
-                                                </a>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <a
+                                                            href={p.live}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="inline-flex items-center gap-2 text-sm text-brand-600 transition hover:text-brand-500 dark:text-brand-300 dark:hover:text-brand-200"
+                                                        >
+                                                            <svg
+                                                                viewBox="0 0 24 24"
+                                                                aria-hidden
+                                                                className="h-4 w-4 fill-none stroke-current"
+                                                                strokeWidth={2}
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <path d="M14 3h7v7" />
+                                                                <path d="M10 14 21 3" />
+                                                                <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+                                                            </svg>
+                                                            {p.live.replace(/^https?:\/\//, '')}
+                                                        </a>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        Live site
+                                                    </TooltipContent>
+                                                </Tooltip>
                                             )}
                                             {p.repo && (
-                                                <a
-                                                    href={p.repo}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="inline-flex items-center gap-2 text-sm text-brand-600 transition hover:text-brand-500 dark:text-brand-300 dark:hover:text-brand-200"
-                                                >
-                                                    <svg
-                                                        viewBox="0 0 24 24"
-                                                        aria-hidden
-                                                        className="h-4 w-4 fill-current"
-                                                    >
-                                                        <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.91 10.91 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z" />
-                                                    </svg>
-                                                    {p.repo.replace(/^https?:\/\/(www\.)?/, '')}
-                                                </a>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <a
+                                                            href={p.repo}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="inline-flex items-center gap-2 text-sm text-brand-600 transition hover:text-brand-500 dark:text-brand-300 dark:hover:text-brand-200"
+                                                        >
+                                                            <svg
+                                                                viewBox="0 0 24 24"
+                                                                aria-hidden
+                                                                className="h-4 w-4 fill-current"
+                                                            >
+                                                                <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.18c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.91 10.91 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.13v3.16c0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z" />
+                                                            </svg>
+                                                            {p.repo.replace(/^https?:\/\/(www\.)?/, '')}
+                                                        </a>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        Source on GitHub
+                                                    </TooltipContent>
+                                                </Tooltip>
                                             )}
                                         </div>
                                     )}
@@ -462,6 +466,7 @@ export default function Welcome() {
                                         ))}
                                     </div>
                                     </div>
+                                </Card>
                                 </article>
                             ))}
                         </div>
@@ -477,13 +482,14 @@ export default function Welcome() {
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
                                         {items.map((item) => (
-                                            <span
+                                            <Badge
                                                 key={item}
-                                                className="inline-flex items-center gap-2 rounded-md border border-stone-200 bg-white px-3 py-1.5 text-sm text-stone-700 dark:border-stone-800 dark:bg-stone-900/60 dark:text-stone-200"
+                                                variant="outline"
+                                                className="gap-2 bg-white px-3 py-1.5 text-sm font-normal dark:bg-stone-900/60"
                                             >
                                                 <TechIcon name={item} />
                                                 {item}
-                                            </span>
+                                            </Badge>
                                         ))}
                                     </div>
                                 </div>
@@ -537,13 +543,6 @@ export default function Welcome() {
                         <Card className="mx-auto mt-10 max-w-xl border-stone-200 bg-white/60 backdrop-blur dark:border-stone-800 dark:bg-stone-900/40">
                             <CardContent className="p-6">
                                 <form onSubmit={submit} className="space-y-4">
-                                    {sent && (
-                                        <div className="rounded-md border border-emerald-500/40 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-200">
-                                            Thanks — your message has been sent. I&apos;ll
-                                            reply soon.
-                                        </div>
-                                    )}
-
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         <FormField
                                             label="Name"
@@ -614,6 +613,8 @@ export default function Welcome() {
                     </footer>
                 </div>
             </div>
+            <Toaster theme={theme} richColors/>
+            </TooltipProvider>
         </>
     );
 }
@@ -626,17 +627,18 @@ function ThemeToggle({
     onToggle: () => void;
 }) {
     const isDark = theme === 'dark';
-    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    const label = isDark ? 'Light mode' : 'Dark mode';
     return (
-        <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={onToggle}
-            aria-label={label}
-            title={label}
-        >
-            {isDark ? (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={onToggle}
+                    aria-label={label}
+                >
+                    {isDark ? (
                 <svg
                     viewBox="0 0 24 24"
                     aria-hidden
@@ -660,11 +662,21 @@ function ThemeToggle({
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
                 </svg>
             )}
-        </Button>
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>{label}</TooltipContent>
+        </Tooltip>
     );
 }
 
-const techIcons: Record<string, { slug?: string; color?: string }> = {
+type TechIconConfig = {
+    slug?: string;
+    color?: string;
+    darkColor?: string;
+    Icon?: ComponentType<{ className?: string }>;
+};
+
+const techIcons: Record<string, TechIconConfig> = {
     // Languages
     Python: { slug: 'python', color: '3776AB' },
     JavaScript: { slug: 'javascript', color: 'F7DF1E' },
@@ -673,22 +685,27 @@ const techIcons: Record<string, { slug?: string; color?: string }> = {
     'C++': { slug: 'cplusplus', color: '00599C' },
     HTML: { slug: 'html5', color: 'E34F26' },
     CSS: { slug: 'css', color: '1572B6' },
-    SQL: {},
+    SQL: { Icon: Database },
 
     // Frameworks & Tools
     Laravel: { slug: 'laravel', color: 'FF2D20' },
     React: { slug: 'react', color: '61DAFB' },
+    'Next.js': { slug: 'nextdotjs', color: '000000', darkColor: 'FFFFFF' },
     'Node.js': { slug: 'nodedotjs', color: '5FA04E' },
+    Express: { slug: 'express', color: '000000', darkColor: 'FFFFFF' },
+    'Tailwind CSS': { slug: 'tailwindcss', color: '06B6D4' },
     PostgreSQL: { slug: 'postgresql', color: '4169E1' },
     MySQL: { slug: 'mysql', color: '4479A1' },
     n8n: { slug: 'n8n', color: 'EA4B71' },
-    LangChain: { slug: 'langchain', color: '1C3C3C' },
+    LangChain: { slug: 'langchain', color: '1C3C3C', darkColor: 'BDD9D7' },
     Ollama: { slug: 'ollama' },
+    Vite: { slug: 'vite', color: '646CFF' },
     Git: { slug: 'git', color: 'F05032' },
     Docker: { slug: 'docker', color: '2496ED' },
+    Vercel: { slug: 'vercel', color: '000000', darkColor: 'FFFFFF' },
     Postman: { slug: 'postman', color: 'FF6C37' },
-    GHL: {},
-    'REST APIs': {},
+    GHL: { Icon: Rocket },
+    'REST APIs': { Icon: Webhook },
 
     // Project stacks
     Inertia: { slug: 'inertia', color: '9553E9' },
@@ -702,7 +719,15 @@ const techIcons: Record<string, { slug?: string; color?: string }> = {
 
 function TechIcon({ name }: { name: string }) {
     const cfg = techIcons[name];
+    const [loaded, setLoaded] = useState(false);
     const [errored, setErrored] = useState(false);
+
+    if (cfg?.Icon) {
+        const Icon = cfg.Icon;
+        return (
+            <Icon className="h-3.5 w-3.5 shrink-0 text-stone-500 dark:text-stone-400" />
+        );
+    }
 
     if (!cfg?.slug || errored) {
         return (
@@ -713,16 +738,80 @@ function TechIcon({ name }: { name: string }) {
         );
     }
 
-    const colorPart = cfg.color ? `/${cfg.color}` : '';
+    const baseUrl = `https://cdn.simpleicons.org/${cfg.slug}`;
+    const lightUrl = cfg.color ? `${baseUrl}/${cfg.color}` : baseUrl;
+    const darkUrl = cfg.darkColor ? `${baseUrl}/${cfg.darkColor}` : lightUrl;
+    const hasDarkVariant = lightUrl !== darkUrl;
+
     return (
-        <img
-            src={`https://cdn.simpleicons.org/${cfg.slug}${colorPart}`}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            className="h-3.5 w-3.5"
-            onError={() => setErrored(true)}
-        />
+        <span className="relative inline-flex h-3.5 w-3.5 shrink-0">
+            {!loaded && (
+                <Skeleton className="absolute inset-0 rounded-sm" />
+            )}
+            <img
+                src={lightUrl}
+                alt=""
+                aria-hidden
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
+                onError={() => setErrored(true)}
+                className={`absolute inset-0 h-3.5 w-3.5 transition-opacity ${
+                    hasDarkVariant ? 'dark:hidden' : ''
+                } ${loaded ? 'opacity-100' : 'opacity-0'}`}
+            />
+            {hasDarkVariant && (
+                <img
+                    src={darkUrl}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    onLoad={() => setLoaded(true)}
+                    className={`absolute inset-0 hidden h-3.5 w-3.5 transition-opacity dark:block ${
+                        loaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                />
+            )}
+        </span>
+    );
+}
+
+function HeroPhoto() {
+    const [loaded, setLoaded] = useState(false);
+    return (
+        <div className="relative mx-auto sm:mx-0">
+            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-brand-500 via-amber-400 to-yellow-300 opacity-70 blur" />
+            <div className="relative h-44 w-44 sm:h-52 sm:w-52">
+                {!loaded && (
+                    <Skeleton className="absolute inset-0 rounded-full" />
+                )}
+                <img
+                    src="/images/profile-photo.jpg"
+                    alt="Jean Maverick Dela Cruz"
+                    onLoad={() => setLoaded(true)}
+                    className={`absolute inset-0 h-full w-full rounded-full object-cover ring-4 ring-white transition-opacity dark:ring-stone-950 ${
+                        loaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                />
+            </div>
+        </div>
+    );
+}
+
+function ProjectImage({ src, alt }: { src: string; alt: string }) {
+    const [loaded, setLoaded] = useState(false);
+    return (
+        <>
+            {!loaded && <Skeleton className="absolute inset-0 rounded-none" />}
+            <img
+                src={src}
+                alt={alt}
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
+                className={`h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02] ${
+                    loaded ? 'opacity-100' : 'opacity-0'
+                }`}
+            />
+        </>
     );
 }
 
