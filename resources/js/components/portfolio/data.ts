@@ -4,7 +4,7 @@ export const experience = [
     {
         company: 'Zen Companies Incorporated',
         role: 'Full Stack Developer',
-        location: 'Cagayan de Oro City, Misamis Oriental',
+        location: 'Cagayan de Oro City, PH',
         period: 'Jan 2026 — Present',
         bullets: [
             'Develop and maintain full-stack web applications spanning frontend interfaces, backend services, API integrations, and database operations.',
@@ -15,7 +15,7 @@ export const experience = [
     {
         company: 'CK Children’s Publishing',
         role: 'Web Developer Intern',
-        location: 'Cagayan de Oro City, Misamis Oriental',
+        location: 'Cagayan de Oro City, PH',
         period: 'Jun 2025 — Aug 2025',
         bullets: [
             'Developed school portal features and helped integrate AI-powered learning tools using Laravel, FastAPI, LangChain, Ollama, and MySQL.',

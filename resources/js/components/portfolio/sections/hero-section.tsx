@@ -1,5 +1,6 @@
 import { HeroPhoto } from '@/components/portfolio/parts';
 import { Button } from '@/components/ui/button';
+import { Mail } from 'lucide-react';
 
 export function HeroSection() {
     return (
@@ -27,38 +28,12 @@ export function HeroSection() {
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                     <Button asChild size="lg">
-                        <a href="#contact">Get in touch</a>
-                    </Button>
-                    <Button
-                        asChild
-                        size="lg"
-                        variant="outline"
-                        className="border-brand-500/60 bg-brand-50 text-brand-700 hover:bg-brand-100 hover:text-brand-700 dark:bg-brand-500/10 dark:text-brand-200 dark:hover:bg-brand-500/20 dark:hover:text-brand-100"
-                    >
-                        <a
-                            href="/jean-maverick-dela-cruz-cv.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            Download CV
-                        </a>
+                        <a href="#projects">See projects</a>
                     </Button>
                     <Button asChild size="lg" variant="outline">
-                        <a
-                            href="https://github.com/mabeyy"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            GitHub
-                        </a>
-                    </Button>
-                    <Button asChild size="lg" variant="outline">
-                        <a
-                            href="https://linkedin.com/in/jeanmaverickdelacruz"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            LinkedIn
+                        <a href="mailto:delacruz.jeanmaverick@gmail.com">
+                            <Mail className="h-4 w-4" />
+                            delacruz.jeanmaverick@gmail.com
                         </a>
                     </Button>
                 </div>
