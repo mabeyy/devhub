@@ -123,9 +123,7 @@ export function ContactSection() {
 
                         <div className="flex items-center justify-end gap-3 pt-1">
                             <Button type="submit" disabled={form.processing}>
-                                {form.processing
-                                    ? 'Sending…'
-                                    : 'Send message'}
+                                {form.processing ? 'Sending…' : 'Send message'}
                             </Button>
                         </div>
                     </form>
