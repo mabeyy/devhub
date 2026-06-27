@@ -27,6 +27,30 @@ export const experience = [
 
 export const projects: Project[] = [
     {
+        title: 'Zen Marine Charters',
+        subtitle: 'Luxury Yacht Charter Marketing Site & Booking Builder',
+        period: 'Jun 2026 — Present',
+        stack: [
+            'React',
+            'TypeScript',
+            'Vite',
+            'Tailwind',
+            'shadcn/ui',
+            'tRPC',
+            'Supabase',
+            'Drizzle',
+            'Sentry',
+            'Vercel',
+        ],
+        live: 'https://www.zenmarinecharter.com',
+        image: '/images/zen-marine.png',
+        bullets: [
+            'Built the marketing site from staging to live launch — luxe editorial header with scroll progress, themed Charters / Experiences / Events / Destinations pages, Embla testimonial and gallery carousels, vessel spec sheet, a 7-post SEO Journal, and prerendered legal & cancellation pages indexed for search.',
+            'Shipped a 5-step booking builder with hash deep-links from CTAs, sticky discount banner, party/guest stepper, and review summary; tightened the customer portal with email/name/phone validation and a multi-step newsletter signup (email → phone + SMS consent).',
+            'Wired the production stack — Sentry-instrumented React 19 + Vite build deploying to Vercel, generated sitemap and prerender pipeline, a branded 404, and a Google Business Profile footer with labeled dock & mailing addresses — moving the site from staging into a live, indexable brand surface.',
+        ],
+    },
+    {
         title: 'Zen Intent',
         subtitle: 'B2B Lead Generation Platform',
         period: 'Apr 2026 — Present',
@@ -37,14 +61,15 @@ export const projects: Project[] = [
             'TypeScript',
             'Tailwind',
             'Stripe',
+            'GHL',
             'Sentry',
         ],
         live: 'https://app.zenintent.io',
         image: '/images/zen-intent.png',
         bullets: [
-            'Owned the end-to-end signup experience — split-layout auth, intent-aware Google OAuth via Laravel Socialite, email-verification gating, and a re-architected per-bucket onboarding wizard wired to Stripe Cashier — turning the front door into a guided funnel toward paid checkout.',
-            'Shipped a branded sidebar and lead-pool widget with full light/dark theme support, unifying the global app chrome so auth, onboarding, and the leads dashboard finally feel like one product.',
-            'Hardened the production stack: Sentry on frontend + backend for end-to-end error visibility, capture-usage instrumentation, branded transactional emails, and a stable production build — fewer prod surprises, faster shipping.',
+            'Owned the activation funnel end-to-end — intent-aware Google OAuth via Laravel Socialite, email-verification gating, a per-bucket Stripe Cashier onboarding wizard, and a resumable multi-step dashboard guided tour with fast/slow-path diversions — turning the front door into a guided journey from signup to first lead.',
+            'Rebuilt the leads dashboard for daily use — Google-review-labeled lead detail with intent-score tooltips, an Email column on Manage Leads, batches grouped by industry × location with sub-batches, and a branded sidebar + lead-pool widget unifying the global chrome across light/dark.',
+            'Hardened production — Sentry on frontend + backend, GHL phone sync in E.164 for SMS workflows, soft-deleted users that preserve billing & audit history, branded transactional emails, and a stable production build — fewer prod surprises, faster shipping.',
         ],
     },
     {
