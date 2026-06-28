@@ -7,10 +7,10 @@ export function SkillsSection() {
     return (
         <section id="skills" className="mt-28">
             <SectionHeading title="Skills" />
-            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+            <div className="mt-8 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
                 {Object.entries(skills).map(([group, items]) => (
                     <div key={group}>
-                        <h3 className="mb-4 font-mono text-sm uppercase tracking-widest text-brand-600 dark:text-brand-400">
+                        <h3 className="mb-3 font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400">
                             {group}
                         </h3>
                         <div className="flex flex-wrap gap-2">

@@ -1,25 +1,75 @@
 import { useEffect, useState } from 'react';
 
-export type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark' | 'system';
+export type ResolvedTheme = 'light' | 'dark';
+
+const STORAGE_KEY = 'theme';
+
+function readStored(): Theme {
+    try {
+        const v = localStorage.getItem(STORAGE_KEY);
+        return v === 'light' || v === 'dark' || v === 'system' ? v : 'system';
+    } catch {
+        return 'system';
+    }
+}
+
+function resolve(t: Theme): ResolvedTheme {
+    if (t !== 'system') return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+}
+
+function apply(r: ResolvedTheme) {
+    document.documentElement.classList.toggle('dark', r === 'dark');
+}
 
 export function useTheme() {
-    const [theme, setTheme] = useState<Theme>('dark');
+    const [theme, setThemeState] = useState<Theme>(() => {
+        if (typeof window === 'undefined') return 'system';
+        return readStored();
+    });
+    const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
+        if (typeof window === 'undefined') return 'light';
+        return document.documentElement.classList.contains('dark')
+            ? 'dark'
+            : 'light';
+    });
 
     useEffect(() => {
-        const isDark = document.documentElement.classList.contains('dark');
-        setTheme(isDark ? 'dark' : 'light');
+        const mql = window.matchMedia('(prefers-color-scheme: dark)');
+        const onSystemChange = () => {
+            if (readStored() !== 'system') return;
+            const next: ResolvedTheme = mql.matches ? 'dark' : 'light';
+            setResolvedTheme(next);
+            apply(next);
+        };
+        mql.addEventListener('change', onSystemChange);
+        return () => mql.removeEventListener('change', onSystemChange);
     }, []);
 
-    const toggleTheme = () => {
-        const next: Theme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(next);
-        document.documentElement.classList.toggle('dark', next === 'dark');
+    const setTheme = (next: Theme) => {
+        setThemeState(next);
         try {
-            localStorage.setItem('theme', next);
+            localStorage.setItem(STORAGE_KEY, next);
         } catch {
             /* localStorage unavailable */
         }
+        const r = resolve(next);
+        setResolvedTheme(r);
+        apply(r);
     };
 
-    return { theme, toggleTheme };
+    const toggleTheme = () => {
+        const next: Theme =
+            theme === 'light'
+                ? 'dark'
+                : theme === 'dark'
+                  ? 'system'
+                  : 'light';
+        setTheme(next);
+    };
+
+    return { theme, resolvedTheme, setTheme, toggleTheme };
 }

@@ -10,15 +10,16 @@
         <link rel="alternate icon" href="/favicon.ico">
 
         <script>
-            // Apply theme before paint to prevent flash. Defaults to light.
+            // Apply theme before paint to prevent flash. Defaults to system.
             (function () {
                 try {
                     var stored = localStorage.getItem('theme');
-                    var theme = stored === 'dark' ? 'dark' : 'light';
-                    document.documentElement.classList.toggle('light', theme === 'light');
-                } catch (e) {
-                    document.documentElement.classList.add('light');
-                }
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    var isDark =
+                        stored === 'dark' ||
+                        ((stored === 'system' || !stored) && prefersDark);
+                    document.documentElement.classList.toggle('dark', isDark);
+                } catch (e) {}
             })();
         </script>
 
