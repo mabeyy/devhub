@@ -7,9 +7,9 @@ export const experience = [
         location: 'Cagayan de Oro City, PH',
         period: 'Jan 2026 — Present',
         bullets: [
-            'Develop and maintain full-stack web applications spanning frontend interfaces, backend services, API integrations, and database operations.',
-            'Build responsive features and streamline user workflows to improve system usability and user experience.',
-            'Resolve bugs, optimize performance, and support testing to improve application reliability.',
+            'Own end-to-end delivery across Zen Intent (B2B lead-gen SaaS) and Zen Marine Charters (luxury yacht booking site) — frontend, backend, integrations, and database.',
+            'Ship activation funnels and operational surfaces: Stripe Cashier checkouts, OAuth + email-verified signup, scene-based product tours, and admin moderation pipelines.',
+            'Wire third-party integrations and production observability — Stripe, GHL CRM, Hunter.io, Meta Pixel + Conversions API, and Sentry across frontend + backend.',
         ],
     },
     {
@@ -45,9 +45,8 @@ export const projects: Project[] = [
         live: 'https://www.zenmarinecharter.com',
         image: '/images/zen-marine.webp',
         bullets: [
-            'Built the marketing site from staging to live launch — luxe editorial header with scroll progress, themed Charters / Experiences / Events / Destinations pages, Embla testimonial and gallery carousels, vessel spec sheet, a 7-post SEO Journal, and prerendered legal & cancellation pages indexed for search.',
-            'Shipped a 5-step booking builder with hash deep-links from CTAs, sticky discount banner, party/guest stepper, and review summary; tightened the customer portal with email/name/phone validation and a multi-step newsletter signup (email → phone + SMS consent).',
-            'Wired the production stack — Sentry-instrumented React 19 + Vite build deploying to Vercel, generated sitemap and prerender pipeline, a branded 404, and a Google Business Profile footer with labeled dock & mailing addresses — moving the site from staging into a live, indexable brand surface.',
+            'Built and launched the marketing site — luxe editorial header with scroll progress, themed Charters / Experiences / Events / Destinations pages, Embla carousels, vessel spec sheet, a 7-post SEO Journal, and prerendered legal & cancellation pages.',
+            'Shipped a 5-step booking builder (hash deep-links, sticky discount banner, party/guest stepper, review summary) and a customer portal with email/name/phone validation + a multi-step newsletter signup with SMS consent.',
         ],
     },
     {
@@ -67,9 +66,8 @@ export const projects: Project[] = [
         live: 'https://app.zenintent.io',
         image: '/images/zen-intent.png',
         bullets: [
-            'Owned the activation funnel end-to-end — split-layout auth with intent-aware Google OAuth via Laravel Socialite, Hunter.io email-verification gating with per-email rate caps, a redesigned per-bucket onboarding wizard wired to Stripe Cashier, and a resumable multi-step dashboard guided tour with scene-based lifecycle and fast/slow-path diversions.',
-            'Rebuilt the daily product surfaces — paginated leads dashboard with sticky headers, sort controls, an Email column, and batches grouped by industry × location with sub-batches; Google-review-labeled lead detail with intent-score tooltips; a unified one-time + monthly Pricing page; a branded sidebar with lead-pool widget; and a customer review collection + admin moderation pipeline.',
-            'Hardened production for growth — Sentry on frontend + backend, Meta Pixel + Conversions API for funnel tracking, GHL phone sync in E.164 for SMS workflows, soft-deleted users that preserve billing & audit history, control-char-stripping input filters across forms, and branded transactional emails — fewer prod surprises, more reliable signal.',
+            'Owned the activation funnel — split-layout auth with intent-aware Google OAuth (Socialite), Hunter.io email gate with per-email rate caps, a per-bucket Stripe Cashier onboarding wizard, and a resumable scene-based dashboard guided tour with fast/slow-path diversions.',
+            'Rebuilt the daily product surfaces — paginated leads dashboard with sort + Email column + industry × location batch grouping, Google-review-labeled lead detail with intent-score tooltips, unified one-time + monthly Pricing, a branded sidebar with lead-pool widget, and a customer review + admin moderation pipeline.',
         ],
     },
     {

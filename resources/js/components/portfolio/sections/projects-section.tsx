@@ -2,23 +2,26 @@ import { projects } from '@/components/portfolio/data';
 import { GithubIcon } from '@/components/portfolio/icons';
 import { ProjectImage, SectionHeading } from '@/components/portfolio/parts';
 import { TechIcon } from '@/components/portfolio/tech-icons';
-import { Card } from '@/components/ui/card';
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { formatUrlForDisplay } from '@/lib/utils';
+import { cn, formatUrlForDisplay } from '@/lib/utils';
 import { ExternalLink } from 'lucide-react';
 
 export function ProjectsSection() {
     return (
         <section id="projects" className="mt-28">
             <SectionHeading title="Projects" />
-            <div className="mt-8 grid gap-6">
-                {projects.map((p) => (
-                    <article key={p.title}>
-                        <Card className="group overflow-hidden rounded-2xl border-stone-200 bg-white/60 shadow-none backdrop-blur transition hover:border-brand-500/60 dark:border-stone-800 dark:bg-stone-900/40">
+            <div className="mt-12 flex flex-col gap-16 md:gap-20">
+                {projects.map((p, i) => {
+                    const reversed = i % 2 === 1;
+                    return (
+                        <article
+                            key={p.title}
+                            className="group grid items-center gap-6 md:grid-cols-12 md:gap-10"
+                        >
                             {p.image && (
                                 <a
                                     href={p.live ?? p.repo ?? '#'}
@@ -26,7 +29,10 @@ export function ProjectsSection() {
                                         p.live || p.repo ? '_blank' : undefined
                                     }
                                     rel="noreferrer"
-                                    className="relative block aspect-[16/9] overflow-hidden border-b border-stone-200 dark:border-stone-800"
+                                    className={cn(
+                                        'relative col-span-12 block aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200 bg-stone-100 transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-900 md:col-span-5',
+                                        reversed && 'md:col-start-8',
+                                    )}
                                 >
                                     <ProjectImage
                                         src={p.image}
@@ -34,18 +40,35 @@ export function ProjectsSection() {
                                     />
                                 </a>
                             )}
-                            <div className="p-6">
+
+                            <div
+                                className={cn(
+                                    'col-span-12 md:col-span-7',
+                                    reversed &&
+                                        'md:col-start-1 md:row-start-1',
+                                )}
+                            >
                                 <p className="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400">
+                                    <span className="text-stone-400 dark:text-stone-600">
+                                        {String(i + 1).padStart(2, '0')} /{' '}
+                                        {String(projects.length).padStart(
+                                            2,
+                                            '0',
+                                        )}{' '}
+                                        ·{' '}
+                                    </span>
                                     {p.subtitle}
                                 </p>
-                                <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
-                                    <h3 className="text-xl font-semibold text-stone-900 dark:text-white">
+
+                                <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                                    <h3 className="text-2xl font-semibold text-stone-900 dark:text-white sm:text-3xl">
                                         {p.title}
                                     </h3>
                                     <span className="font-mono text-xs text-stone-500 dark:text-stone-400">
                                         {p.period}
                                     </span>
                                 </div>
+
                                 {(p.repo || p.live) && (
                                     <div className="mt-3 flex flex-wrap items-center gap-4">
                                         {p.live && (
@@ -90,6 +113,7 @@ export function ProjectsSection() {
                                         )}
                                     </div>
                                 )}
+
                                 <ul className="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-300">
                                     {p.bullets.map((b) => (
                                         <li key={b} className="flex gap-3">
@@ -100,6 +124,7 @@ export function ProjectsSection() {
                                         </li>
                                     ))}
                                 </ul>
+
                                 <div className="mt-5 flex flex-wrap gap-2">
                                     {p.stack.map((s) => (
                                         <span
@@ -112,9 +137,9 @@ export function ProjectsSection() {
                                     ))}
                                 </div>
                             </div>
-                        </Card>
-                    </article>
-                ))}
+                        </article>
+                    );
+                })}
             </div>
         </section>
     );
