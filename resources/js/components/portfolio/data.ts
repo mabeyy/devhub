@@ -43,7 +43,7 @@ export const projects: Project[] = [
             'Vercel',
         ],
         live: 'https://www.zenmarinecharter.com',
-        image: '/images/zen-marine.png',
+        image: '/images/zen-marine.webp',
         bullets: [
             'Built the marketing site from staging to live launch — luxe editorial header with scroll progress, themed Charters / Experiences / Events / Destinations pages, Embla testimonial and gallery carousels, vessel spec sheet, a 7-post SEO Journal, and prerendered legal & cancellation pages indexed for search.',
             'Shipped a 5-step booking builder with hash deep-links from CTAs, sticky discount banner, party/guest stepper, and review summary; tightened the customer portal with email/name/phone validation and a multi-step newsletter signup (email → phone + SMS consent).',
@@ -67,9 +67,9 @@ export const projects: Project[] = [
         live: 'https://app.zenintent.io',
         image: '/images/zen-intent.png',
         bullets: [
-            'Owned the activation funnel end-to-end — intent-aware Google OAuth via Laravel Socialite, email-verification gating, a per-bucket Stripe Cashier onboarding wizard, and a resumable multi-step dashboard guided tour with fast/slow-path diversions — turning the front door into a guided journey from signup to first lead.',
-            'Rebuilt the leads dashboard for daily use — Google-review-labeled lead detail with intent-score tooltips, an Email column on Manage Leads, batches grouped by industry × location with sub-batches, and a branded sidebar + lead-pool widget unifying the global chrome across light/dark.',
-            'Hardened production — Sentry on frontend + backend, GHL phone sync in E.164 for SMS workflows, soft-deleted users that preserve billing & audit history, branded transactional emails, and a stable production build — fewer prod surprises, faster shipping.',
+            'Owned the activation funnel end-to-end — split-layout auth with intent-aware Google OAuth via Laravel Socialite, Hunter.io email-verification gating with per-email rate caps, a redesigned per-bucket onboarding wizard wired to Stripe Cashier, and a resumable multi-step dashboard guided tour with scene-based lifecycle and fast/slow-path diversions.',
+            'Rebuilt the daily product surfaces — paginated leads dashboard with sticky headers, sort controls, an Email column, and batches grouped by industry × location with sub-batches; Google-review-labeled lead detail with intent-score tooltips; a unified one-time + monthly Pricing page; a branded sidebar with lead-pool widget; and a customer review collection + admin moderation pipeline.',
+            'Hardened production for growth — Sentry on frontend + backend, Meta Pixel + Conversions API for funnel tracking, GHL phone sync in E.164 for SMS workflows, soft-deleted users that preserve billing & audit history, control-char-stripping input filters across forms, and branded transactional emails — fewer prod surprises, more reliable signal.',
         ],
     },
     {
