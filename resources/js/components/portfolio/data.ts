@@ -29,6 +29,7 @@ export const projects: Project[] = [
     {
         title: 'Zen Marine Charters',
         subtitle: 'Luxury Yacht Charter Marketing Site & Booking Builder',
+        company: 'Zen Companies',
         period: 'Jun 2026 — Present',
         stack: [
             'React',
@@ -52,6 +53,7 @@ export const projects: Project[] = [
     {
         title: 'Zen Intent',
         subtitle: 'B2B Lead Generation Platform',
+        company: 'Zen Companies',
         period: 'Apr 2026 — Present',
         stack: [
             'Laravel',
@@ -70,6 +72,29 @@ export const projects: Project[] = [
             'Rebuilt the daily product surfaces — paginated leads dashboard with sort + Email column + industry × location batch grouping, Google-review-labeled lead detail with intent-score tooltips, unified one-time + monthly Pricing, a branded sidebar with lead-pool widget, and a customer review + admin moderation pipeline.',
         ],
     },
+    {
+        title: 'ViralTube Exploder',
+        subtitle: 'AI YouTube Thumbnail & Title Generator',
+        company: 'Zen Companies',
+        period: 'Aug 2026 — Present',
+        stack: [
+            'Next.js',
+            'React',
+            'TypeScript',
+            'Tailwind',
+            'Supabase',
+            'Stripe',
+            'Gemini',
+            'Vercel',
+        ],
+        live: 'https://viraltube.app',
+        image: '/images/viraltube.jpg',
+        imageClassName: 'object-center',
+        bullets: [
+            'Built the pre-publish packaging suite — generate, clone, and fusion flows that produce thumbnail + title pairs together, an Explore feed of proven winners, and an Arsenal to keep best assets on hand.',
+            'Wired the full product: Supabase auth + data, a Stripe credit and pricing ladder, Gemini + fal.ai generation pipelines, Redis rate limiting, Turnstile bot protection, and Sentry observability on Next.js / Vercel.',
+        ],
+    },
 ];
 
 export const personalProjects: Project[] = [
@@ -86,7 +111,7 @@ export const personalProjects: Project[] = [
             'Vite',
             'shadcn/ui',
         ],
-        repo: 'https://github.com/mabeyy/the-commons-club',
+        live: 'https://thecommonsclub.cc',
         image: '/images/the-commons.jpg',
         imageClassName: 'object-center',
         bullets: [
@@ -113,7 +138,7 @@ export const personalProjects: Project[] = [
 export const navItems = [
     { id: 'top', label: 'Home' },
     { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'projects', label: 'Company' },
     { id: 'personal', label: 'Personal' },
     { id: 'skills', label: 'Skills' },
     { id: 'contact', label: 'Contact' },

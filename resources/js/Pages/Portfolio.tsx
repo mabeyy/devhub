@@ -1,10 +1,10 @@
-import { personalProjects } from '@/components/portfolio/data';
 import { BackgroundBlobs } from '@/components/portfolio/sections/background-blobs';
+import { CompanyProjectsSection } from '@/components/portfolio/sections/company-projects-section';
 import { ContactSection } from '@/components/portfolio/sections/contact-section';
 import { ExperienceSection } from '@/components/portfolio/sections/experience-section';
 import { HeaderNav } from '@/components/portfolio/sections/header-nav';
 import { HeroSection } from '@/components/portfolio/sections/hero-section';
-import { ProjectsSection } from '@/components/portfolio/sections/projects-section';
+import { PersonalProjectsSection } from '@/components/portfolio/sections/personal-projects-section';
 import { SiteFooter } from '@/components/portfolio/sections/site-footer';
 import { SkillsSection } from '@/components/portfolio/sections/skills-section';
 import { Toaster } from '@/components/ui/sonner';
@@ -36,12 +36,8 @@ export default function Portfolio() {
                         />
                         <HeroSection />
                         <ExperienceSection />
-                        <ProjectsSection />
-                        <ProjectsSection
-                            id="personal"
-                            title="Personal Projects"
-                            items={personalProjects}
-                        />
+                        <CompanyProjectsSection />
+                        <PersonalProjectsSection />
                         <SkillsSection />
                         <ContactSection />
                         <SiteFooter />
