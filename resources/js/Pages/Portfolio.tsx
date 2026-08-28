@@ -1,9 +1,9 @@
+import { personalProjects } from '@/components/portfolio/data';
 import { BackgroundBlobs } from '@/components/portfolio/sections/background-blobs';
 import { ContactSection } from '@/components/portfolio/sections/contact-section';
 import { ExperienceSection } from '@/components/portfolio/sections/experience-section';
 import { HeaderNav } from '@/components/portfolio/sections/header-nav';
 import { HeroSection } from '@/components/portfolio/sections/hero-section';
-import { personalProjects } from '@/components/portfolio/data';
 import { ProjectsSection } from '@/components/portfolio/sections/projects-section';
 import { SiteFooter } from '@/components/portfolio/sections/site-footer';
 import { SkillsSection } from '@/components/portfolio/sections/skills-section';

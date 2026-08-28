@@ -21,10 +21,10 @@ export function HeroSection() {
                 </h2>
                 <p className="mt-6 max-w-xl text-base leading-relaxed text-stone-600 dark:text-stone-400">
                     I build full-stack web apps that ship to real users —
-                    marketing sites with multi-step booking flows,
-                    Stripe-backed dashboards with OAuth and email-verified
-                    onboarding, and BERT-based multi-task NLP research. Based
-                    in Cagayan de Oro City, Philippines.
+                    marketing sites with multi-step booking flows, Stripe-backed
+                    dashboards with OAuth and email-verified onboarding, and
+                    BERT-based multi-task NLP research. Based in Cagayan de Oro
+                    City, Philippines.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                     <Button asChild size="lg">

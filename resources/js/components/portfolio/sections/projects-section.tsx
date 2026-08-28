@@ -56,17 +56,13 @@ export function ProjectsSection({
                             <div
                                 className={cn(
                                     'col-span-12 md:col-span-7',
-                                    reversed &&
-                                        'md:col-start-1 md:row-start-1',
+                                    reversed && 'md:col-start-1 md:row-start-1',
                                 )}
                             >
                                 <p className="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400">
                                     <span className="text-stone-400 dark:text-stone-600">
                                         {String(i + 1).padStart(2, '0')} /{' '}
-                                        {String(items.length).padStart(
-                                            2,
-                                            '0',
-                                        )}{' '}
+                                        {String(items.length).padStart(2, '0')}{' '}
                                         ·{' '}
                                     </span>
                                     {p.subtitle}
