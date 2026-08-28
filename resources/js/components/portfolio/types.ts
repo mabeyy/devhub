@@ -3,6 +3,7 @@ import { PageProps } from '@/types';
 export type Project = {
     title: string;
     subtitle: string;
+    company?: string;
     period: string;
     stack: string[];
     repo?: string;
