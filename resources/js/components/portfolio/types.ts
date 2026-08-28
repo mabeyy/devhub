@@ -8,6 +8,7 @@ export type Project = {
     repo?: string;
     live?: string;
     image?: string;
+    imageClassName?: string;
     bullets: string[];
 };
 

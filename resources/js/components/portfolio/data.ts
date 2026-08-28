@@ -70,6 +70,31 @@ export const projects: Project[] = [
             'Rebuilt the daily product surfaces — paginated leads dashboard with sort + Email column + industry × location batch grouping, Google-review-labeled lead detail with intent-score tooltips, unified one-time + monthly Pricing, a branded sidebar with lead-pool widget, and a customer review + admin moderation pipeline.',
         ],
     },
+];
+
+export const personalProjects: Project[] = [
+    {
+        title: 'The Commons Club',
+        subtitle: 'Pickleball Court Booking Platform',
+        period: 'Aug 2026 — Present',
+        stack: [
+            'Laravel',
+            'Inertia',
+            'React',
+            'TypeScript',
+            'Tailwind',
+            'Vite',
+            'shadcn/ui',
+        ],
+        repo: 'https://github.com/mabeyy/the-commons-club',
+        image: '/images/the-commons.jpg',
+        imageClassName: 'object-center',
+        bullets: [
+            'Self-initiated end-to-end build for a pickleball club — public court schedule with real-time availability, a multi-step booking flow with payment, and self-service booking lookup, reschedule, and confirmation.',
+            'Shipped a full admin back office: availability management, blocked dates and time slots, manual payment verification and history, business profile settings, and SMS + email notifications with Google Calendar sync.',
+            'Handled auth end-to-end with Laravel Fortify — email verification, two-factor challenge, and passkeys — on Laravel 13 / PHP 8.4 with an Inertia + React 19 front end.',
+        ],
+    },
     {
         title: 'SA-MTL for Cyberbullying Detection',
         subtitle: 'Undergraduate Thesis',
@@ -89,6 +114,7 @@ export const navItems = [
     { id: 'top', label: 'Home' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
+    { id: 'personal', label: 'Personal' },
     { id: 'skills', label: 'Skills' },
     { id: 'contact', label: 'Contact' },
 ];

@@ -33,7 +33,15 @@ export function HeroPhoto() {
     );
 }
 
-export function ProjectImage({ src, alt }: { src: string; alt: string }) {
+export function ProjectImage({
+    src,
+    alt,
+    className,
+}: {
+    src: string;
+    alt: string;
+    className?: string;
+}) {
     const [loaded, setLoaded] = useState(false);
     return (
         <>
@@ -45,6 +53,7 @@ export function ProjectImage({ src, alt }: { src: string; alt: string }) {
                 onLoad={() => setLoaded(true)}
                 className={cn(
                     'h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02]',
+                    className,
                     loaded ? 'opacity-100' : 'opacity-0',
                 )}
             />

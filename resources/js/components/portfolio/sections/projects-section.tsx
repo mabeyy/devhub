@@ -2,6 +2,7 @@ import { projects } from '@/components/portfolio/data';
 import { GithubIcon } from '@/components/portfolio/icons';
 import { ProjectImage, SectionHeading } from '@/components/portfolio/parts';
 import { TechIcon } from '@/components/portfolio/tech-icons';
+import { Project } from '@/components/portfolio/types';
 import {
     Tooltip,
     TooltipContent,
@@ -10,12 +11,22 @@ import {
 import { cn, formatUrlForDisplay } from '@/lib/utils';
 import { ExternalLink } from 'lucide-react';
 
-export function ProjectsSection() {
+type ProjectsSectionProps = {
+    id?: string;
+    title?: string;
+    items?: Project[];
+};
+
+export function ProjectsSection({
+    id = 'projects',
+    title = 'Projects',
+    items = projects,
+}: ProjectsSectionProps = {}) {
     return (
-        <section id="projects" className="mt-28">
-            <SectionHeading title="Projects" />
+        <section id={id} className="mt-28">
+            <SectionHeading title={title} />
             <div className="mt-12 flex flex-col gap-16 md:gap-20">
-                {projects.map((p, i) => {
+                {items.map((p, i) => {
                     const reversed = i % 2 === 1;
                     return (
                         <article
@@ -37,6 +48,7 @@ export function ProjectsSection() {
                                     <ProjectImage
                                         src={p.image}
                                         alt={`${p.title} screenshot`}
+                                        className={p.imageClassName}
                                     />
                                 </a>
                             )}
@@ -51,7 +63,7 @@ export function ProjectsSection() {
                                 <p className="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400">
                                     <span className="text-stone-400 dark:text-stone-600">
                                         {String(i + 1).padStart(2, '0')} /{' '}
-                                        {String(projects.length).padStart(
+                                        {String(items.length).padStart(
                                             2,
                                             '0',
                                         )}{' '}
