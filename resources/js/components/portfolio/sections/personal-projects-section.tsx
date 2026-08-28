@@ -1,8 +1,7 @@
-import { projects } from '@/components/portfolio/data';
+import { personalProjects } from '@/components/portfolio/data';
 import { GithubIcon } from '@/components/portfolio/icons';
 import { ProjectImage, SectionHeading } from '@/components/portfolio/parts';
 import { TechIcon } from '@/components/portfolio/tech-icons';
-import { Project } from '@/components/portfolio/types';
 import {
     Tooltip,
     TooltipContent,
@@ -11,38 +10,33 @@ import {
 import { cn, formatUrlForDisplay } from '@/lib/utils';
 import { ExternalLink } from 'lucide-react';
 
-type ProjectsSectionProps = {
-    id?: string;
-    title?: string;
-    items?: Project[];
-};
-
-export function ProjectsSection({
-    id = 'projects',
-    title = 'Projects',
-    items = projects,
-}: ProjectsSectionProps = {}) {
+/**
+ * A borderless, editorial counterpart to the Company carousel: each build is
+ * an alternating image/text spread structured by a large faded index numeral
+ * rather than a card frame — open, spacious, and typographic.
+ */
+export function PersonalProjectsSection() {
     return (
-        <section id={id} className="mt-28">
-            <SectionHeading title={title} />
-            <div className="mt-12 flex flex-col gap-16 md:gap-20">
-                {items.map((p, i) => {
+        <section id="personal" className="mt-28">
+            <SectionHeading title="Projects I Built Myself" />
+
+            <div className="mt-14 flex flex-col gap-20 md:gap-28">
+                {personalProjects.map((p, i) => {
                     const reversed = i % 2 === 1;
+                    const href = p.live ?? p.repo;
                     return (
                         <article
                             key={p.title}
-                            className="group grid items-center gap-6 md:grid-cols-12 md:gap-10"
+                            className="group grid items-center gap-8 md:grid-cols-2 md:gap-14"
                         >
                             {p.image && (
                                 <a
-                                    href={p.live ?? p.repo ?? '#'}
-                                    target={
-                                        p.live || p.repo ? '_blank' : undefined
-                                    }
+                                    href={href ?? '#'}
+                                    target={href ? '_blank' : undefined}
                                     rel="noreferrer"
                                     className={cn(
-                                        'relative col-span-12 block aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200 bg-stone-100 transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-900 md:col-span-5',
-                                        reversed && 'md:col-start-8',
+                                        'relative block aspect-[4/3] overflow-hidden rounded-3xl shadow-xl ring-1 ring-stone-200/70 transition duration-500 group-hover:-translate-y-1.5 group-hover:shadow-2xl dark:ring-stone-800',
+                                        reversed && 'md:order-2',
                                     )}
                                 >
                                     <ProjectImage
@@ -53,23 +47,13 @@ export function ProjectsSection({
                                 </a>
                             )}
 
-                            <div
-                                className={cn(
-                                    'col-span-12 md:col-span-7',
-                                    reversed && 'md:col-start-1 md:row-start-1',
-                                )}
-                            >
+                            <div className={cn(reversed && 'md:order-1')}>
                                 <p className="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400">
-                                    <span className="text-stone-400 dark:text-stone-600">
-                                        {String(i + 1).padStart(2, '0')} /{' '}
-                                        {String(items.length).padStart(2, '0')}{' '}
-                                        ·{' '}
-                                    </span>
                                     {p.subtitle}
                                 </p>
 
                                 <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                                    <h3 className="text-2xl font-semibold text-stone-900 dark:text-white sm:text-3xl">
+                                    <h3 className="text-3xl font-semibold tracking-tight text-stone-900 dark:text-white sm:text-4xl">
                                         {p.title}
                                     </h3>
                                     <span className="font-mono text-xs text-stone-500 dark:text-stone-400">
@@ -77,7 +61,7 @@ export function ProjectsSection({
                                     </span>
                                 </div>
 
-                                {(p.repo || p.live) && (
+                                {(p.live || p.repo) && (
                                     <div className="mt-3 flex flex-wrap items-center gap-4">
                                         {p.live && (
                                             <Tooltip>
@@ -122,28 +106,31 @@ export function ProjectsSection({
                                     </div>
                                 )}
 
-                                <ul className="mt-4 space-y-2 text-sm text-stone-600 dark:text-stone-300">
+                                <ul className="mt-5 space-y-2.5 text-sm text-stone-600 dark:text-stone-300">
                                     {p.bullets.map((b) => (
                                         <li key={b} className="flex gap-3">
-                                            <span className="mt-1 text-brand-600 dark:text-brand-400">
-                                                ▹
-                                            </span>
+                                            <span className="mt-[0.45rem] h-1.5 w-1.5 flex-none rounded-full bg-brand-500" />
                                             <span>{b}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div className="mt-5 flex flex-wrap gap-2">
-                                    {p.stack.map((s) => (
+                                <p className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-mono text-xs text-stone-500 dark:text-stone-400">
+                                    {p.stack.map((s, si) => (
                                         <span
                                             key={s}
-                                            className="inline-flex items-center gap-1.5 rounded-full border border-stone-300 px-3 py-1 font-mono text-xs text-stone-600 dark:border-stone-700 dark:text-stone-300"
+                                            className="inline-flex items-center gap-1.5"
                                         >
                                             <TechIcon name={s} />
                                             {s}
+                                            {si < p.stack.length - 1 && (
+                                                <span className="ml-2.5 text-stone-300 dark:text-stone-700">
+                                                    ·
+                                                </span>
+                                            )}
                                         </span>
                                     ))}
-                                </div>
+                                </p>
                             </div>
                         </article>
                     );
