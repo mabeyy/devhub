@@ -19,6 +19,7 @@ export function CompanyProjectsSection() {
     const [openId, setOpenId] = useState<string | null>(null);
     const [paused, setPaused] = useState(false);
     const trackRef = useRef<HTMLDivElement>(null);
+    const pointerType = useRef<string | null>(null);
 
     const companies = useMemo(() => {
         const seen: string[] = [];
@@ -173,9 +174,18 @@ export function CompanyProjectsSection() {
                         return (
                             <article
                                 key={`${p.title}-${idx}`}
-                                onClick={() =>
-                                    setOpenId(isOpen ? null : p.title)
-                                }
+                                onPointerDown={(e) => {
+                                    pointerType.current = e.pointerType;
+                                }}
+                                onClick={() => {
+                                    // A mouse already reveals on hover; only
+                                    // touch needs a tap to pin the card open.
+                                    if (pointerType.current === 'mouse') return;
+                                    setOpenId(isOpen ? null : p.title);
+                                }}
+                                onMouseLeave={() => {
+                                    if (isOpen) setOpenId(null);
+                                }}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
                                         e.preventDefault();
