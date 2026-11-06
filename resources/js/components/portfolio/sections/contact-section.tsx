@@ -64,19 +64,21 @@ export function ContactSection() {
 
                         <p className="mt-6 max-w-2xl text-stone-300">
                             Full-stack developer shipping real product across
-                            web and applied AI. Open to internships, freelance,
-                            and full-time roles — let&apos;s talk.
+                            web and applied AI. Open to full-time, contract, and
+                            freelance roles — let&apos;s talk.
                         </p>
 
-                        <div className="mt-8 flex flex-wrap gap-3">
-                            <div className="inline-flex">
+                        <div className="mt-8 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap">
+                            <div className="col-span-3 flex sm:inline-flex">
                                 <Button
                                     asChild
-                                    className="rounded-r-none text-white hover:text-white"
+                                    className="min-w-0 flex-1 rounded-r-none text-white hover:text-white sm:flex-none"
                                 >
                                     <a href={`mailto:${EMAIL}`}>
-                                        <Mail className="h-4 w-4" />
-                                        {EMAIL}
+                                        <Mail className="h-4 w-4 shrink-0" />
+                                        <span className="truncate">
+                                            {EMAIL}
+                                        </span>
                                     </a>
                                 </Button>
 
@@ -124,12 +126,12 @@ export function ContactSection() {
                                     Cagayan de Oro, Philippines · UTC+8
                                 </p>
                             </div>
-                            <div className="text-right">
+                            <div className="sm:text-right">
                                 <p className="font-mono text-xs uppercase tracking-wider text-stone-400">
                                     Availability
                                 </p>
                                 <p className="mt-1 text-sm text-stone-200">
-                                    Remote · Full-time or contract
+                                    Remote or on-site · Full-time or contract
                                 </p>
                             </div>
                         </div>
