@@ -5,10 +5,10 @@ export const experience = [
         company: 'Zen Companies Incorporated',
         role: 'Full Stack Developer',
         location: 'Cagayan de Oro City, PH',
-        period: 'Jan 2026 — Oct 2026',
+        period: 'Dec 2025 — Nov 2026',
         bullets: [
-            'Full Stack Developer with 10 months of production experience at Zen Companies, owning features end to end across four live products: Zen Intent (B2B lead-gen SaaS), ViralTube Exploder (AI thumbnail and title generator), Zen Marine Charters (luxury yacht booking site), and ZenAnalytics (internal analytics hub).',
-            'Work across Laravel, React/Next.js, TypeScript, and Supabase/Postgres, with Stripe, GHL CRM, and Sentry integrations. Shipped 560+ commits, built ZenAnalytics from scratch to report signups and revenue for every product in one dashboard, and hardened ViralTube for PCI SAQ A with a nonce-based CSP and PII scrubbing.',
+            'Own features end to end across four live products: Zen Intent (B2B lead-gen SaaS), ViralTube Exploder (AI thumbnail and title generator), Zen Marine Charters (luxury yacht booking site), and ZenAnalytics (internal analytics hub).',
+            'Work across Laravel, React/Next.js, TypeScript, and Supabase/Postgres, with Stripe, GHL CRM, and Sentry integrations. Built ZenAnalytics from scratch to report signups and revenue for every product in one dashboard, and hardened ViralTube for PCI SAQ A with a nonce-based CSP and PII scrubbing.',
             'Bring a product-minded, ship-it-whole approach: from the signup and checkout flow to the admin console and the alert that fires when it breaks, so teams get features that launch fast and stay reliable in production.',
         ],
     },
@@ -30,7 +30,7 @@ export const projects: Project[] = [
         title: 'Zen Intent',
         subtitle: 'B2B Lead Generation Platform',
         company: 'Zen Companies',
-        period: 'Apr 2026 — Oct 2026',
+        period: 'Apr 2026 — Nov 2026',
         stack: [
             'Laravel',
             'Inertia',
@@ -54,7 +54,7 @@ export const projects: Project[] = [
         title: 'ViralTube Exploder',
         subtitle: 'AI YouTube Thumbnail & Title Generator',
         company: 'Zen Companies',
-        period: 'Aug 2026 — Oct 2026',
+        period: 'Aug 2026 — Nov 2026',
         stack: [
             'Next.js',
             'React',
@@ -78,7 +78,7 @@ export const projects: Project[] = [
         title: 'Zen Marine Charters',
         subtitle: 'Luxury Yacht Charter Marketing Site & Booking Builder',
         company: 'Zen Companies',
-        period: 'Jun 2026 — Oct 2026',
+        period: 'Jun 2026 — Nov 2026',
         stack: [
             'React',
             'TypeScript',
