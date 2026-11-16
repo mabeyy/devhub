@@ -10,26 +10,44 @@ import { Theme } from '@/lib/hooks/use-theme';
 import { cn } from '@/lib/utils';
 import { ReactNode, useState } from 'react';
 
-export function HeroPhoto() {
+export function HeroPortrait({ rows }: { rows: [string, ReactNode][] }) {
     const [loaded, setLoaded] = useState(false);
     return (
-        <div className="relative mx-auto sm:mx-0">
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-brand-500 via-amber-400 to-yellow-300 opacity-70 blur" />
-            <div className="relative h-44 w-44 sm:h-52 sm:w-52">
-                {!loaded && (
-                    <Skeleton className="absolute inset-0 rounded-full" />
-                )}
-                <img
-                    src="/images/profile-photo.jpg"
-                    alt="Jean Maverick Dela Cruz"
-                    onLoad={() => setLoaded(true)}
-                    className={cn(
-                        'absolute inset-0 h-full w-full rounded-full object-cover ring-4 ring-white transition-opacity dark:ring-stone-950',
-                        loaded ? 'opacity-100' : 'opacity-0',
-                    )}
-                />
+        <figure className="relative mx-auto w-full max-w-[13.5rem] sm:max-w-[15rem] lg:mr-0">
+            <div
+                aria-hidden
+                className="absolute -inset-5 -z-10 rounded-full bg-gradient-to-tr from-brand-500/25 via-amber-300/15 to-transparent blur-2xl"
+            />
+            <div className="overflow-hidden rounded-2xl border border-stone-200 bg-stone-50 shadow-sm dark:border-stone-800 dark:bg-stone-900/60 dark:shadow-none">
+                <div className="relative aspect-square overflow-hidden bg-stone-100 dark:bg-stone-200">
+                    {!loaded && <Skeleton className="absolute inset-0" />}
+                    <img
+                        src="/images/profile-photo.jpg"
+                        alt="Jean Maverick Dela Cruz"
+                        onLoad={() => setLoaded(true)}
+                        className={cn(
+                            'absolute inset-0 h-full w-full object-cover transition-opacity duration-500',
+                            loaded ? 'opacity-100' : 'opacity-0',
+                        )}
+                    />
+                </div>
+                <figcaption className="divide-y divide-stone-200/80 border-t border-stone-200 font-mono text-[0.65rem] dark:divide-stone-800/80 dark:border-stone-800">
+                    {rows.map(([label, value]) => (
+                        <div
+                            key={label}
+                            className="flex items-center justify-between gap-3 px-3 py-1.5"
+                        >
+                            <span className="uppercase tracking-widest text-stone-400 dark:text-stone-500">
+                                {label}
+                            </span>
+                            <span className="flex items-center gap-1.5 text-stone-700 dark:text-stone-200">
+                                {value}
+                            </span>
+                        </div>
+                    ))}
+                </figcaption>
             </div>
-        </div>
+        </figure>
     );
 }
 
