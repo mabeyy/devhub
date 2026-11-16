@@ -109,7 +109,7 @@ export function CompanyProjectsSection() {
                 <div
                     role="tablist"
                     aria-label="Filter company projects by company"
-                    className="mt-8 flex flex-wrap gap-2"
+                    className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-stone-200 pb-3 dark:border-stone-800"
                 >
                     {[ALL, ...companies].map((c) => {
                         const isActive = active === c;
@@ -121,16 +121,20 @@ export function CompanyProjectsSection() {
                                 aria-selected={isActive}
                                 onClick={() => selectCompany(c)}
                                 className={cn(
-                                    'rounded-full border px-4 py-1.5 font-mono text-xs tracking-wide transition-colors',
+                                    'relative pb-3 font-mono text-xs uppercase tracking-[0.2em] transition-colors after:absolute after:inset-x-0 after:-bottom-px after:h-px after:transition-colors',
                                     isActive
-                                        ? 'border-brand-500 bg-brand-500 text-white shadow-sm dark:text-stone-950'
-                                        : 'border-stone-300 text-stone-600 hover:border-stone-400 hover:text-stone-900 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:text-white',
+                                        ? 'text-brand-600 after:bg-brand-500 dark:text-brand-400 dark:after:bg-brand-400'
+                                        : 'text-stone-400 after:bg-transparent hover:text-stone-700 dark:text-stone-500 dark:hover:text-stone-200',
                                 )}
                             >
                                 {c}
                             </button>
                         );
                     })}
+                    <span className="ml-auto font-mono text-xs text-stone-400 dark:text-stone-600">
+                        {String(filtered.length).padStart(2, '0')}{' '}
+                        {filtered.length === 1 ? 'project' : 'projects'}
+                    </span>
                 </div>
             )}
 
@@ -149,17 +153,17 @@ export function CompanyProjectsSection() {
                             type="button"
                             aria-label="Previous project"
                             onClick={() => advance(-1)}
-                            className="absolute -left-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-stone-200 bg-white/90 p-2.5 text-stone-700 shadow-md backdrop-blur transition hover:bg-white hover:text-brand-600 dark:border-stone-700 dark:bg-stone-900/90 dark:text-stone-200 dark:hover:bg-stone-900 sm:block"
+                            className="absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-white/20 bg-black/40 p-2.5 text-white/90 backdrop-blur-md transition hover:border-white/40 hover:bg-black/60 hover:text-white sm:block"
                         >
-                            <ChevronLeft className="h-5 w-5" />
+                            <ChevronLeft className="h-4 w-4" />
                         </button>
                         <button
                             type="button"
                             aria-label="Next project"
                             onClick={() => advance(1)}
-                            className="absolute -right-2 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-stone-200 bg-white/90 p-2.5 text-stone-700 shadow-md backdrop-blur transition hover:bg-white hover:text-brand-600 dark:border-stone-700 dark:bg-stone-900/90 dark:text-stone-200 dark:hover:bg-stone-900 sm:block"
+                            className="absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-white/20 bg-black/40 p-2.5 text-white/90 backdrop-blur-md transition hover:border-white/40 hover:bg-black/60 hover:text-white sm:block"
                         >
-                            <ChevronRight className="h-5 w-5" />
+                            <ChevronRight className="h-4 w-4" />
                         </button>
                     </>
                 )}
@@ -216,15 +220,27 @@ export function CompanyProjectsSection() {
                                         )}
                                     >
                                         <div>
-                                            <p className="font-mono text-[11px] uppercase tracking-widest text-brand-300">
+                                            <p className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest text-brand-300">
+                                                <span
+                                                    aria-hidden
+                                                    className="h-px w-6 bg-brand-300/60"
+                                                />
                                                 {p.subtitle}
                                             </p>
-                                            <h3 className="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                                            <h3 className="mt-1.5 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                                                 {p.title}
                                             </h3>
                                         </div>
-                                        <span className="hidden shrink-0 rounded-full border border-white/25 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/80 sm:inline-block">
-                                            Hover to read
+                                        <span className="hidden shrink-0 font-mono text-[11px] tracking-widest text-white/50 sm:block sm:text-right">
+                                            {String(
+                                                (idx % filtered.length) + 1,
+                                            ).padStart(2, '0')}
+                                            <span className="text-white/25">
+                                                {' / '}
+                                                {String(
+                                                    filtered.length,
+                                                ).padStart(2, '0')}
+                                            </span>
                                         </span>
                                     </div>
 
@@ -250,23 +266,31 @@ export function CompanyProjectsSection() {
                                             {p.title}
                                         </h3>
 
-                                        <ul className="space-y-1.5 text-sm leading-relaxed text-white/85">
-                                            {p.bullets.map((b) => (
+                                        <ol className="space-y-2 border-t border-white/10 pt-3 text-sm leading-relaxed text-white/85">
+                                            {p.bullets.map((b, i) => (
                                                 <li
                                                     key={b}
-                                                    className="flex gap-2.5"
+                                                    className="grid grid-cols-[1.75rem_1fr]"
                                                 >
-                                                    <span className="mt-[0.45rem] h-1.5 w-1.5 flex-none rounded-full bg-brand-400" />
+                                                    <span
+                                                        aria-hidden
+                                                        className="pt-0.5 font-mono text-[11px] text-brand-300/70"
+                                                    >
+                                                        {String(i + 1).padStart(
+                                                            2,
+                                                            '0',
+                                                        )}
+                                                    </span>
                                                     <span>{b}</span>
                                                 </li>
                                             ))}
-                                        </ul>
+                                        </ol>
 
-                                        <div className="mt-1 flex flex-wrap gap-1.5">
+                                        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-2 border-t border-white/10 pt-3">
                                             {p.stack.map((s) => (
                                                 <span
                                                     key={s}
-                                                    className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 font-mono text-[11px] text-white/85"
+                                                    className="inline-flex items-center gap-1.5 font-mono text-[11px] text-white/70"
                                                 >
                                                     <TechIcon name={s} />
                                                     {s}
@@ -284,12 +308,14 @@ export function CompanyProjectsSection() {
                                                         onClick={(e) =>
                                                             e.stopPropagation()
                                                         }
-                                                        className="inline-flex items-center gap-2 text-sm text-brand-300 transition hover:text-brand-200"
+                                                        className="group/link inline-flex items-center gap-2 font-mono text-xs text-brand-300 transition hover:text-brand-200"
                                                     >
-                                                        <ExternalLink className="h-4 w-4" />
-                                                        {formatUrlForDisplay(
-                                                            p.live,
-                                                        )}
+                                                        <ExternalLink className="h-3.5 w-3.5" />
+                                                        <span className="border-b border-dashed border-brand-300/40 pb-0.5 transition group-hover/link:border-brand-200">
+                                                            {formatUrlForDisplay(
+                                                                p.live,
+                                                            )}
+                                                        </span>
                                                     </a>
                                                 )}
                                                 {p.repo && (
@@ -300,12 +326,14 @@ export function CompanyProjectsSection() {
                                                         onClick={(e) =>
                                                             e.stopPropagation()
                                                         }
-                                                        className="inline-flex items-center gap-2 text-sm text-white/70 transition hover:text-white"
+                                                        className="group/link inline-flex items-center gap-2 font-mono text-xs text-white/70 transition hover:text-white"
                                                     >
-                                                        <GithubIcon className="h-4 w-4" />
-                                                        {formatUrlForDisplay(
-                                                            p.repo,
-                                                        )}
+                                                        <GithubIcon className="h-3.5 w-3.5" />
+                                                        <span className="border-b border-dashed border-white/25 pb-0.5 transition group-hover/link:border-white/60">
+                                                            {formatUrlForDisplay(
+                                                                p.repo,
+                                                            )}
+                                                        </span>
                                                     </a>
                                                 )}
                                             </div>
