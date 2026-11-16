@@ -1,5 +1,3 @@
-import { PageProps } from '@/types';
-
 export type Project = {
     title: string;
     subtitle: string;
@@ -12,7 +10,3 @@ export type Project = {
     imageClassName?: string;
     bullets: string[];
 };
-
-export type FlashProps = PageProps<{
-    flash?: { contact_status?: string | null };
-}>;

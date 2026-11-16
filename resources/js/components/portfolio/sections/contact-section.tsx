@@ -1,16 +1,51 @@
 import { GithubIcon, LinkedinIcon } from '@/components/portfolio/icons';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Check, Copy, Download, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowUpRight, Check, Copy, Download, Mail } from 'lucide-react';
+import { useState, type ComponentType } from 'react';
 import { toast } from 'sonner';
 
 const EMAIL = 'delacruz.jeanmaverick@gmail.com';
+
+const channels: {
+    label: string;
+    value: string;
+    href: string;
+    icon: ComponentType<{ className?: string }>;
+    external?: boolean;
+}[] = [
+    {
+        label: 'LinkedIn',
+        value: 'in/jeanmaverickdelacruz',
+        href: 'https://linkedin.com/in/jeanmaverickdelacruz',
+        icon: LinkedinIcon,
+        external: true,
+    },
+    {
+        label: 'GitHub',
+        value: 'github.com/mabeyy',
+        href: 'https://github.com/mabeyy',
+        icon: GithubIcon,
+        external: true,
+    },
+    {
+        label: 'Résumé',
+        value: 'Download CV (PDF)',
+        href: '/jean-maverick-dela-cruz-cv.pdf',
+        icon: Download,
+        external: true,
+    },
+];
+
+const facts: [string, string][] = [
+    ['Based', 'Cagayan de Oro, PH · UTC+8'],
+    ['Setup', 'Remote or on-site'],
+    ['Open to', 'Full-time · Contract · Freelance'],
+];
 
 async function copyText(text: string): Promise<boolean> {
     if (navigator.clipboard && window.isSecureContext) {
@@ -43,97 +78,106 @@ export function ContactSection() {
     return (
         <section id="contact" className="mt-28">
             <div className="dark">
-                <Card className="relative overflow-hidden rounded-3xl border-stone-800 bg-stone-900 shadow-none">
+                <Card className="relative overflow-hidden rounded-3xl border-stone-800 bg-gradient-to-br from-stone-900 via-stone-900 to-stone-950 shadow-none">
+                    {/* Technical dot grid — fades out to the right so the
+                        channel list stays clean. */}
                     <div
                         aria-hidden
-                        className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl"
+                        className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_right,black,transparent_70%)]"
+                    />
+                    <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent"
                     />
 
-                    <CardContent className="relative p-8 sm:p-12 lg:p-14">
-                        <p className="font-mono text-xs uppercase tracking-widest text-stone-400">
-                            Get in touch
-                        </p>
+                    <CardContent className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:p-14">
+                        <div className="flex flex-col">
+                            <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-stone-500">
+                                <span className="relative flex h-1.5 w-1.5">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:hidden" />
+                                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                </span>
+                                Available for work
+                            </p>
 
-                        <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                            Building{' '}
-                            <span className="text-brand-400">
-                                something ambitious
-                            </span>
-                            ?
-                        </h2>
+                            <h2 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
+                                Have something
+                                <br />
+                                worth building?
+                            </h2>
 
-                        <p className="mt-6 max-w-2xl text-stone-300">
-                            Full-stack developer shipping real product across
-                            web and applied AI. Open to full-time, contract, and
-                            freelance roles — let&apos;s talk.
-                        </p>
+                            <p className="mb-10 mt-5 max-w-md text-sm leading-relaxed text-stone-400">
+                                I ship full-stack product across web and applied
+                                AI — and I reply to every message, usually
+                                within a day.
+                            </p>
 
-                        <div className="mt-8 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap">
-                            <div className="col-span-3 flex sm:inline-flex">
-                                <Button
-                                    asChild
-                                    className="min-w-0 flex-1 rounded-r-none text-white hover:text-white sm:flex-none"
+                            <dl className="mt-auto max-w-sm divide-y divide-stone-800 border-y border-stone-800">
+                                {facts.map(([label, value]) => (
+                                    <div
+                                        key={label}
+                                        className="flex items-center justify-between gap-4 py-2.5"
+                                    >
+                                        <dt className="font-mono text-[10px] uppercase tracking-widest text-stone-500">
+                                            {label}
+                                        </dt>
+                                        <dd className="text-right text-[13px] text-stone-200">
+                                            {value}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+
+                        <div className="lg:self-center">
+                            <div className="flex gap-2">
+                                <a
+                                    href={`mailto:${EMAIL}`}
+                                    className="group flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-brand-500 px-4 py-4 text-stone-950 transition hover:bg-brand-400"
                                 >
-                                    <a href={`mailto:${EMAIL}`}>
-                                        <Mail className="h-4 w-4 shrink-0" />
-                                        <span className="truncate">
-                                            {EMAIL}
-                                        </span>
-                                    </a>
-                                </Button>
-
+                                    <Mail className="h-4 w-4 shrink-0" />
+                                    <span className="min-w-0 flex-1 truncate font-mono text-[13px] font-medium">
+                                        {EMAIL}
+                                    </span>
+                                    <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                </a>
                                 <CopyEmailButton email={EMAIL} />
                             </div>
 
-                            <Button asChild variant="outline">
-                                <a
-                                    href="https://linkedin.com/in/jeanmaverickdelacruz"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <LinkedinIcon className="h-4 w-4" />
-                                    LinkedIn
-                                </a>
-                            </Button>
-                            <Button asChild variant="outline">
-                                <a
-                                    href="https://github.com/mabeyy"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <GithubIcon className="h-4 w-4" />
-                                    GitHub
-                                </a>
-                            </Button>
-                            <Button asChild variant="outline">
-                                <a
-                                    href="/jean-maverick-dela-cruz-cv.pdf"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <Download className="h-4 w-4" />
-                                    CV
-                                </a>
-                            </Button>
-                        </div>
-
-                        <div className="mt-12 flex flex-wrap justify-between gap-6 border-t border-stone-800 pt-8">
-                            <div>
-                                <p className="font-mono text-xs uppercase tracking-wider text-stone-400">
-                                    Location
-                                </p>
-                                <p className="mt-1 text-sm text-stone-200">
-                                    Cagayan de Oro, Philippines · UTC+8
-                                </p>
-                            </div>
-                            <div className="sm:text-right">
-                                <p className="font-mono text-xs uppercase tracking-wider text-stone-400">
-                                    Availability
-                                </p>
-                                <p className="mt-1 text-sm text-stone-200">
-                                    Remote or on-site · Full-time or contract
-                                </p>
-                            </div>
+                            <ul className="-mx-3 mt-2">
+                                {channels.map((c) => (
+                                    <li
+                                        key={c.label}
+                                        className="relative border-b border-stone-800/80 last:border-b-0"
+                                    >
+                                        <a
+                                            href={c.href}
+                                            target={
+                                                c.external
+                                                    ? '_blank'
+                                                    : undefined
+                                            }
+                                            rel={
+                                                c.external
+                                                    ? 'noreferrer'
+                                                    : undefined
+                                            }
+                                            className="group flex items-center gap-4 rounded-lg px-3 py-4 transition-colors hover:bg-white/[0.04]"
+                                        >
+                                            <c.icon className="h-4 w-4 shrink-0 text-stone-600 transition-colors group-hover:text-brand-400" />
+                                            <div className="min-w-0 flex-1">
+                                                <p className="font-mono text-[10px] uppercase tracking-widest text-stone-600 transition-colors group-hover:text-brand-400/70">
+                                                    {c.label}
+                                                </p>
+                                                <p className="mt-0.5 truncate font-mono text-[13px] text-stone-300 transition-colors group-hover:text-white">
+                                                    {c.value}
+                                                </p>
+                                            </div>
+                                            <ArrowUpRight className="h-4 w-4 shrink-0 -translate-x-1 text-stone-600 opacity-0 transition-all group-hover:translate-x-0 group-hover:text-brand-400 group-hover:opacity-100" />
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </CardContent>
                 </Card>
@@ -159,20 +203,18 @@ function CopyEmailButton({ email }: { email: string }) {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <Button
+                <button
                     type="button"
-                    variant="outline"
-                    size="icon"
                     onClick={onCopy}
-                    aria-label="Copy email"
-                    className="-ml-px rounded-l-none"
+                    aria-label="Copy email address"
+                    className="shrink-0 rounded-xl border border-stone-700 px-3.5 text-stone-400 transition-colors hover:border-brand-500/60 hover:text-white"
                 >
                     {copied ? (
                         <Check className="h-4 w-4 text-emerald-400" />
                     ) : (
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-3.5 w-3.5" />
                     )}
-                </Button>
+                </button>
             </TooltipTrigger>
             <TooltipContent>{copied ? 'Copied!' : 'Copy email'}</TooltipContent>
         </Tooltip>
