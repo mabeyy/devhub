@@ -90,8 +90,8 @@ export function ContactSection() {
                         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent"
                     />
 
-                    <CardContent className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:p-14">
-                        <div className="flex flex-col">
+                    <CardContent className="relative grid gap-10 p-6 sm:p-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:p-14">
+                        <div className="flex min-w-0 flex-col">
                             <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-stone-500">
                                 <span className="relative flex h-1.5 w-1.5">
                                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 motion-reduce:hidden" />
@@ -118,10 +118,10 @@ export function ContactSection() {
                                         key={label}
                                         className="flex items-center justify-between gap-4 py-2.5"
                                     >
-                                        <dt className="font-mono text-[10px] uppercase tracking-widest text-stone-500">
+                                        <dt className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-stone-500">
                                             {label}
                                         </dt>
-                                        <dd className="text-right text-[13px] text-stone-200">
+                                        <dd className="min-w-0 text-right text-[13px] text-stone-200">
                                             {value}
                                         </dd>
                                     </div>
@@ -129,14 +129,14 @@ export function ContactSection() {
                             </dl>
                         </div>
 
-                        <div className="lg:self-center">
+                        <div className="min-w-0 lg:self-center">
                             <div className="flex gap-2">
                                 <a
                                     href={`mailto:${EMAIL}`}
-                                    className="group flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-brand-500 px-4 py-4 text-stone-950 transition hover:bg-brand-400"
+                                    className="group flex min-w-0 flex-1 items-center gap-2.5 rounded-xl bg-brand-500 px-3.5 py-4 text-stone-950 transition hover:bg-brand-400 sm:gap-3 sm:px-4"
                                 >
                                     <Mail className="h-4 w-4 shrink-0" />
-                                    <span className="min-w-0 flex-1 truncate font-mono text-[13px] font-medium">
+                                    <span className="min-w-0 flex-1 truncate font-mono text-xs font-medium sm:text-[13px]">
                                         {EMAIL}
                                     </span>
                                     <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
